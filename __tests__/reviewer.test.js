@@ -1,5 +1,5 @@
 require('dotenv').config();
-require('../database/data-helpers');
+const { prepare } = require('../database/data-helpers');
 
 const request = require('supertest');
 const app = require('../lib/app');
@@ -23,5 +23,27 @@ describe('reviewer routes', () => {
       });
   });
 
+  // it('gets a reviewer by id with GET', async() => {
+  //   const reviewer = await Reviewer.findOne();
 
+  //   return request(app)
+  //     .get(`/api/v1/reviewers/${reviewer.id}`)
+  //     .then(res => {
+  //       expect(res.body).toEqual({
+  //         _id: reviewer.id,
+  //         name: reviewer.name,
+  //         company: reviewer.company,
+  //         reviews: [{
+  //           _id: expect.anything(),
+  //           rating: expect.any(Number),
+  //           review: expect.any(String),
+  //           film: {
+  //             _id: expect.anything(),
+  //             title: expect.any(String),
+  //           },
+  //           __v:0
+  //         }]
+  //       });
+  //     });
+  // });
 });
