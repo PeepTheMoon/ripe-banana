@@ -4,6 +4,7 @@ const { prepare } = require('../database/data-helpers');
 const request = require('supertest');
 const app = require('../lib/app');
 const Studio = require('../lib/models/Studio');
+require('../lib/models/Studio');
 
 require('../lib/models/Studio');
 
@@ -34,8 +35,20 @@ describe('studio routes', () => {
       });
   });
 
+  it('GET studio id and name', async() => {
+    const studios = prepare(await Studio.find().select({ name: true }));
+
+    return request(app)
+      .get('/api/v1/studios')
+      .then(res => {
+        expect(res.body).toEqual(studios);
+      });
+
+
+  });
+
   // it('GET studio by id', async() => {
-  //   const studio = prepare(await (await Studio.findOne()).populate('films.film'));
+  //   const studio = prepare(await Studio.findOne()).populate('films.film');
   //   return request(app)
   //     .get(`/api/v1/studios/${studio._id}`)
   //     .the(res => {
