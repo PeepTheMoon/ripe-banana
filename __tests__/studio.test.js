@@ -1,9 +1,9 @@
-// const { prepare } = require('../database/data-helpers');
 require('dotenv').config();
-require('../database/data-helpers');
+const { prepare } = require('../database/data-helpers');
 
 const request = require('supertest');
 const app = require('../lib/app');
+const Studio = require('../lib/models/Studio');
 
 require('../lib/models/Studio');
 
@@ -33,5 +33,14 @@ describe('studio routes', () => {
         });
       });
   });
+
+  // it('GET studio by id', async() => {
+  //   const studio = prepare(await (await Studio.findOne()).populate('films.film'));
+  //   return request(app)
+  //     .get(`/api/v1/studios/${studio._id}`)
+  //     .the(res => {
+  //       expect(res.body).toEqual(studio);
+  //     });
+  // });
 
 });
