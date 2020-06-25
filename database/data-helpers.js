@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 const connect = require('../lib/utils/connect');
 const seed = require('./seed');
 
-const request = require('supertest');
-const app = require('../lib/app');
+// const request = require('supertest');
+// const app = require('../lib/app');
 
 beforeAll(async() => {
   const uri = await mongod.getUri();
