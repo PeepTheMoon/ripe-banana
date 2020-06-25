@@ -1,10 +1,10 @@
 const chance = require('chance').Chance();
 
-const Studio = require('../lib/models/Studio');
 const Reviewer = require('../lib/models/Reviewer');
 const Actor = require('../lib/models/Actor');
+const Studio = require('../lib/models/Studio');
 
-module.exports = async({ reviewers = 5, createdStudios = 10, actors = 5 } = {}) => {
+module.exports = async({ reviewers = 5, actors = 5, createdStudios = 10 } = {}) => {
   await Reviewer.create([...Array(reviewers)].map(() => ({
     name: chance.name(),
     company: chance.company()
