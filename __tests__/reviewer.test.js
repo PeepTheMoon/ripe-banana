@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { prepare } = require('../database/data-helpers');
+require('../database/data-helpers');
 
 const request = require('supertest');
 const app = require('../lib/app');
@@ -23,27 +23,25 @@ describe('reviewer routes', () => {
       });
   });
 
-  // it('gets a reviewer by id with GET', async() => {
-  //   const reviewer = await Reviewer.findOne();
-
-  //   return request(app)
-  //     .get(`/api/v1/reviewers/${reviewer.id}`)
-  //     .then(res => {
-  //       expect(res.body).toEqual({
-  //         _id: reviewer.id,
-  //         name: reviewer.name,
-  //         company: reviewer.company,
-  //         reviews: [{
-  //           _id: expect.anything(),
-  //           rating: expect.any(Number),
-  //           review: expect.any(String),
-  //           film: {
-  //             _id: expect.anything(),
-  //             title: expect.any(String),
-  //           },
-  //           __v:0
-  //         }]
-  //       });
-  //     });
-  // });
+  // to be tested once the routes have get by id route
+  it('DELETE a review with no reviews', async() => {
+    return request(app)
+      .post('/api/v1/reviewers')
+      .send({
+        name: 'Doc Studios',
+        company: 'that one film company'
+      })
+      .then(reviewer => {
+        return request(app)
+          .delete(`/api/v1/reviewers/${reviewer.body._id}`);
+      })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.anything(),
+          name: 'Doc Studios',
+          company: 'that one film company',
+          __v: 0
+        });
+      });
+  });
 });
