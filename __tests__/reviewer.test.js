@@ -4,6 +4,8 @@ require('../database/data-helpers');
 const request = require('supertest');
 const app = require('../lib/app');
 const Reviewer = require('../lib/models/Reviewer');
+const Film = require('../lib/models/Film');
+const Review = require('../lib/models/Review');
 
 describe('reviewer routes', () => {
   it('gets reviewers with GET', async() => {
@@ -23,7 +25,34 @@ describe('reviewer routes', () => {
       });
   });
 
-  // to be tested once the routes have get by id route
+  it('gets a reviewer by id with GET', async() => {
+    const reviewer = await Reviewer.findOne();
+
+    return request(app)
+      .get(`/api/v1/reviewers/${reviewer.id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: reviewer.id,
+          name: reviewer.name,
+          __v: 0,
+          company: reviewer.company,
+          reviews: expect.arrayContaining(
+            [
+              expect.objectContaining(
+                {
+                  _id: expect.anything(),
+                  rating: expect.any(Number),
+                  review: expect.any(String),
+                  film: {
+                    _id: expect.anything(),
+                    title: expect.any(String)
+                  }
+                })
+            ])
+        });
+      });
+  });
+
   it('DELETE a review with no reviews', async() => {
     return request(app)
       .post('/api/v1/reviewers')
