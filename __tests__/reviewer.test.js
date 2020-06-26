@@ -4,6 +4,8 @@ const { prepare } = require('../database/data-helpers');
 const request = require('supertest');
 const app = require('../lib/app');
 const Reviewer = require('../lib/models/Reviewer');
+const Film = require('../lib/models/Film');
+const Review = require('../lib/models/Review');
 
 describe('reviewer routes', () => {
   it('gets reviewers with GET', async() => {
@@ -23,27 +25,31 @@ describe('reviewer routes', () => {
       });
   });
 
-  // it('gets a reviewer by id with GET', async() => {
-  //   const reviewer = await Reviewer.findOne();
+  it('gets a reviewer by id with GET', async() => {
+    const reviewer = await Reviewer.findOne();
 
-  //   return request(app)
-  //     .get(`/api/v1/reviewers/${reviewer.id}`)
-  //     .then(res => {
-  //       expect(res.body).toEqual({
-  //         _id: reviewer.id,
-  //         name: reviewer.name,
-  //         company: reviewer.company,
-  //         reviews: [{
-  //           _id: expect.anything(),
-  //           rating: expect.any(Number),
-  //           review: expect.any(String),
-  //           film: {
-  //             _id: expect.anything(),
-  //             title: expect.any(String),
-  //           },
-  //           __v:0
-  //         }]
-  //       });
-  //     });
-  // });
+    return request(app)
+      .get(`/api/v1/reviewers/${reviewer.id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: reviewer.id,
+          name: reviewer.name,
+          __v: 0,
+          company: reviewer.company,
+          reviews: expect.arrayContaining(
+            [
+              expect.objectContaining(
+                {
+                  _id: expect.anything(),
+                  rating: expect.any(Number),
+                  review: expect.any(String),
+                  film: {
+                    _id: expect.anything(),
+                    title: expect.any(String)
+                  }
+                })
+            ])
+        });
+      });
+  });
 });
