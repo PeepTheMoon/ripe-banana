@@ -47,14 +47,14 @@ describe('studio routes', () => {
 
   });
 
-  // // can be tested once we have film model 
-  // it('GET studios by id', async() => {
-  //   const studio = prepare(await Studio.findOne()).populate('films.film');
-  //   return request(app)
-  //     .get(`/api/v1/studios/${studio._id}`)
-  //     .the(res => {
-  //       expect(res.body).toEqual(studio);
-  //     });
-  // });
+  // can be tested once we have film model 
+  it('GET studios by id', async() => {
+    const studio = prepare(await Studio.findOne().populate('films'));
+    return request(app)
+      .get(`/api/v1/studios/${studio._id}`)
+      .then(res => {
+        expect(res.body).toEqual(studio);
+      });
+  });
 
 });
