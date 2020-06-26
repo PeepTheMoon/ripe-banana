@@ -4,8 +4,8 @@ require('../database/data-helpers');
 const request = require('supertest');
 const app = require('../lib/app');
 const Reviewer = require('../lib/models/Reviewer');
-const Film = require('../lib/models/Film');
-const Review = require('../lib/models/Review');
+// const Film = require('../lib/models/Film');
+// const Review = require('../lib/models/Review');
 
 describe('reviewer routes', () => {
   it('gets reviewers with GET', async() => {
