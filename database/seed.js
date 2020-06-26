@@ -1,5 +1,4 @@
 const chance = require('chance').Chance();
-
 const Reviewer = require('../lib/models/Reviewer');
 const Actor = require('../lib/models/Actor');
 const Studio = require('../lib/models/Studio');
