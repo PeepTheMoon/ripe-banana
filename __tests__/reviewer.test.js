@@ -53,24 +53,24 @@ describe('reviewer routes', () => {
       });
   });
 
-  it('DELETE a review with no reviews', async() => {
-    return request(app)
-      .post('/api/v1/reviewers')
-      .send({
-        name: 'Doc Studios',
-        company: 'that one film company'
-      })
-      .then(reviewer => {
-        return request(app)
-          .delete(`/api/v1/reviewers/${reviewer.body._id}`);
-      })
-      .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.anything(),
-          name: 'Doc Studios',
-          company: 'that one film company',
-          __v: 0
-        });
-      });
-  });
+  // it('DELETE a review with no reviews', async() => {
+  //   return request(app)
+  //     .post('/api/v1/reviewers')
+  //     .send({
+  //       name: 'Doc Studios',
+  //       company: 'that one film company'
+  //     })
+  //     .then(reviewer => {
+  //       return request(app)
+  //         .delete(`/api/v1/reviewers/${reviewer.body._id}`);
+  //     })
+  //     .then(res => {
+  //       expect(res.body).toEqual({
+  //         _id: expect.anything(),
+  //         name: 'Doc Studios',
+  //         company: 'that one film company',
+  //         __v: 0
+  //       });
+  //     });
+  // });
 });
