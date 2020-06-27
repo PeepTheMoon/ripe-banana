@@ -92,4 +92,20 @@ describe('reviewer routes', () => {
         });
       });
   });
+
+  it('updates a reviewer`s info with PATCH', async() => {
+    const reviewer =   await Reviewer.findOne();
+
+    return request(app)
+      .patch(`/api/v1/reviewers/${reviewer.id}`)
+      .send({ name: 'Billie Jean', company: 'Dance Songs, LLC' })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: reviewer.id,
+          name: 'Billie Jean',
+          company: 'Dance Songs, LLC',
+          __v: 0
+        });
+      });
+  });
 });
