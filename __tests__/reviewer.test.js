@@ -4,8 +4,6 @@ require('../database/data-helpers');
 const request = require('supertest');
 const app = require('../lib/app');
 const Reviewer = require('../lib/models/Reviewer');
-const Film = require('../lib/models/Film');
-const Review = require('../lib/models/Review');
 
 describe('reviewer routes', () => {
   it('gets reviewers with GET', async() => {
@@ -53,26 +51,26 @@ describe('reviewer routes', () => {
         });
       });
   });
-});
 
-//      // to be tested once the routes have get by id route
-// it('DELETE a review with no reviews', async() => {
-//   return request(app)
-//     .post('/api/v1/reviewers')
-//     .send({
-//       name: 'Doc Studios',
-//       company: 'that one film company'
-//     })
-//     .then(reviewer => {
-//       return request(app)
-//         .delete(`/api/v1/reviewers/${reviewer.body._id}`);
-//     })
-//     .then(res => {
-//       expect(res.body).toEqual({
-//         _id: expect.anything(),
-//         name: 'Doc Studios',
-//         company: 'that one film company',
-//         __v: 0
-//       });
-//     });
-// });
+  it('DELETE a review with no reviews', async() => {
+    return request(app)
+      .post('/api/v1/reviewers')
+      .send({
+        name: 'Doc Studios',
+        company: 'that one film company'
+      })
+      .then(reviewer => {
+        console.log(reviewer.body);
+        return request(app)
+          .delete(`/api/v1/reviewers/${reviewer.body._id}`);
+      })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.anything(),
+          name: 'Doc Studios',
+          company: 'that one film company',
+          __v: 0
+        });
+      });
+  });
+});

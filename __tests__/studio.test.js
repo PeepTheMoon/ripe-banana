@@ -1,12 +1,11 @@
 require('dotenv').config();
-const { prepare } = require('../database/data-helpers');
+require('../lib/models/Studio');
+require('../lib/models/Studio');
 
+const { prepare } = require('../database/data-helpers');
 const request = require('supertest');
 const app = require('../lib/app');
 const Studio = require('../lib/models/Studio');
-require('../lib/models/Studio');
-
-require('../lib/models/Studio');
 
 describe('studio routes', () => {
   it('creates a studio', () => {
@@ -37,24 +36,20 @@ describe('studio routes', () => {
 
   it('GET studio id and name', async() => {
     const studios = prepare(await Studio.find().select({ name: true }));
-
     return request(app)
       .get('/api/v1/studios')
       .then(res => {
         expect(res.body).toEqual(studios);
       });
-
-
   });
 
-  // // can be tested once we have film model 
-  // it('GET studios by id', async() => {
-  //   const studio = prepare(await Studio.findOne()).populate('films.film');
-  //   return request(app)
-  //     .get(`/api/v1/studios/${studio._id}`)
-  //     .the(res => {
-  //       expect(res.body).toEqual(studio);
-  //     });
-  // });
-
+  // can be tested once we have film model 
+  it('GET studios by id', async() => {
+    const studio = prepare(await Studio.findOne().populate('films'));
+    return request(app)
+      .get(`/api/v1/studios/${studio._id}`)
+      .then(res => {
+        expect(res.body).toEqual(studio);
+      });
+  });
 });
