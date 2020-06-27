@@ -52,7 +52,7 @@ describe('reviewer routes', () => {
       });
   });
 
-  it('DELETE a review with no reviews', async() => {
+  it('DELETE a reviewer with no reviews', async() => {
     return request(app)
       .post('/api/v1/reviewers')
       .send({
@@ -60,7 +60,6 @@ describe('reviewer routes', () => {
         company: 'that one film company'
       })
       .then(reviewer => {
-        console.log(reviewer.body);
         return request(app)
           .delete(`/api/v1/reviewers/${reviewer.body._id}`);
       })
