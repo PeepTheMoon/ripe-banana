@@ -8,5 +8,4 @@
     film: { _id, title }
 }]
 ```
-
-2. * Deploy to heroku & check on front end
+1. * Deploy to heroku & check on front end

@@ -43,4 +43,7 @@ describe('reviews routes', () => {
       });
   });
 
+  // it('gets the 100 highest rated reviews with GET', async() => {
+
+  // });
 });
