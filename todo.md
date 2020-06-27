@@ -8,6 +8,6 @@
     film: { _id, title }
 }]
 ```
-2. * POST & DELETE Reviews, plus tests
+2. * DELETE Reviews, plus tests
 
 3. * Deploy to heroku & check on front end

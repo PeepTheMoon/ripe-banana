@@ -74,7 +74,7 @@ describe('reviewer routes', () => {
       });
   });
 
-  it('adds a new reviewer with POST', async() => {
+  it('adds a new reviewer with POST', () => {
     const newReviewer = {
       name: chance.name(),
       company: chance.company()
