@@ -1,11 +1,13 @@
 require('dotenv').config();
 require('../database/data-helpers');
 
+const chance = require('chance').Chance();
 const request = require('supertest');
 const app = require('../lib/app');
 const Reviewer = require('../lib/models/Reviewer');
 
 describe('reviewer routes', () => {
+
   it('gets reviewers with GET', async() => {
     const reviewers = await Reviewer.find();
 
@@ -22,11 +24,9 @@ describe('reviewer routes', () => {
         expect(res.body).toEqual(expected);
       });
   });
-  
 
   it('gets a reviewer by id with GET', async() => {
     const reviewer = await Reviewer.findOne();
-
     return request(app)
       .get(`/api/v1/reviewers/${reviewer.id}`)
       .then(res => {
@@ -69,6 +69,25 @@ describe('reviewer routes', () => {
           _id: expect.anything(),
           name: 'Doc Studios',
           company: 'that one film company',
+          __v: 0
+        });
+      });
+  });
+
+  it('adds a new reviewer with POST', async() => {
+    const newReviewer = {
+      name: chance.name(),
+      company: chance.company()
+    };
+
+    return request(app)
+      .post ('/api/v1/reviewers')
+      .send(newReviewer)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.anything(),
+          name: newReviewer.name,
+          company: newReviewer.company,
           __v: 0
         });
       });

@@ -43,7 +43,6 @@ describe('studio routes', () => {
       });
   });
 
-  // can be tested once we have film model 
   it('GET studios by id', async() => {
     const studio = prepare(await Studio.findOne().populate('films'));
     return request(app)
