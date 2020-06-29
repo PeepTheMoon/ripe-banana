@@ -8,6 +8,7 @@ const Review = require('../lib/models/Review');
 const Reviewer = require('../lib/models/Reviewer');
 const Film = require('../lib/models/Film');
 
+
 describe('reviews routes', () => {
   it('adds a new review with POST', async() => {
     const film = await Film.findOne();
@@ -43,7 +44,20 @@ describe('reviews routes', () => {
       });
   });
 
-  // it('gets the 100 highest rated reviews with GET', async() => {
-
-  // });
+  it('gets the 100 highest rated reviews with GET', async() => {
+    return request(app)
+      .get('/api/v1/reviews/')
+      .then(res => {
+        expect(res.body.length).toEqual(100);
+        expect(res.body).toContainEqual({
+          _id: expect.anything(),
+          rating: expect.any(Number),
+          review: expect.any(String),
+          film: {
+            _id: expect.anything(),
+            title: expect.any(String)
+          }
+        });
+      });
+  });
 });
