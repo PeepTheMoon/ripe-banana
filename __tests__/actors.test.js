@@ -5,6 +5,7 @@ const chance = require('chance').Chance();
 const Actor = require('../lib/models/Actor');
 
 describe('Actor routes', () => {
+
   it('GETs all actors', async() => {
     const actors = await Actor.find();
 
@@ -14,6 +15,7 @@ describe('Actor routes', () => {
         expect(res.body.length).toEqual(actors.length);
       });
   });
+
   it('GETs a specific actor by ID', async() => {
     const actor = prepare(await Actor.findOne());
 
@@ -23,6 +25,7 @@ describe('Actor routes', () => {
         expect(res.body).toEqual(actor);
       });
   });
+  
   it('POSTs a new actor', async() => {
     const newActor = {
       name: chance.name(),

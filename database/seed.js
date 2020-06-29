@@ -16,6 +16,7 @@ module.exports = async({ reviewers = 5, actors = 5, createdStudios = 10, created
     dob: chance.date(),
     pob: chance.city()
   })));
+  
   const allStudios = await Studio.create([...Array(createdStudios)].map(() => ({
     name: `${chance.capitalize(chance.word())} ${chance.capitalize(chance.word())}`, 
     address: {
