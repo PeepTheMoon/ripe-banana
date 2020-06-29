@@ -5,7 +5,7 @@ const Studio = require('../lib/models/Studio');
 const Film = require('../lib/models/Film');
 const Review = require('../lib/models/Review');
 
-module.exports = async({ reviewers = 5, actors = 5, createdStudios = 10, createdFilms = 10, reviews = 15 } = {}) => {
+module.exports = async({ reviewers = 5, actors = 5, createdStudios = 10, createdFilms = 10, reviews = 100 } = {}) => {
   const allReviewers = await Reviewer.create([...Array(reviewers)].map(() => ({
     name: chance.name(),
     company: chance.company()
